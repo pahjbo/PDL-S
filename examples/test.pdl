@@ -1,0 +1,27 @@
+service testing 
+{
+	parameters {
+		p1 : real ;
+		p2 : integer ;
+		p3 : string;
+	}
+	
+	input {
+		group g1 {
+			params=p1,p2
+			constraints 
+			[if ($p2^2 + 1) * 5 > 10  then $p1 in range [ 3 ... cos(4.25) ] or $p1 > 1 ]
+			[ assert $p1 is null ]
+			active when $p1 > 5;
+			group gin {
+				
+			}
+		}
+	}
+	output {
+		group g2 {
+			
+		}
+	}
+	
+}

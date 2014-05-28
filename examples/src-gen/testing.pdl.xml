@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Service xmlns="http://www.ivoa.net/xml/PDL/v1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ivoa.net/xml/Parameter/v0.1 PDL-V1.0.xsd">
+<!-- file generated from PDL/S -->
+	<ServiceName>testing</ServiceName>
+	<Parameters>
+	<parameter>
+	 		<Name>p1</Name>
+	 		<ParameterType>real</ParameterType>
+	</parameter>
+	<parameter>
+	 		<Name>p2</Name>
+	 		<ParameterType>integer</ParameterType>
+	</parameter>
+	<parameter>
+	 		<Name>p3</Name>
+	 		<ParameterType>string</ParameterType>
+	</parameter>
+	</Parameters>
+	<Inputs>
+	<ParameterGroup>
+	  <Name>g1</Name>
+	  <ParameterRef ParameterName="p1"/>
+	  <ParameterRef ParameterName="p2"/>
+	  <ConstraintOnGroup>
+	     <ConditionalStatement xsi:type="IfThenConditionalStatement">
+	        <if>
+	        </if>
+	        <then>
+	        </then>
+	     </ConditionalStatement>
+	     <ConditionalStatement xsi:type="AlwaysConditionalStatement">
+	        <always>
+	        </always>
+	     </ConditionalStatement>
+	  </ConstraintOnGroup>
+	</ParameterGroup>
+	</Inputs>
+	<Outputs>
+	<ParameterGroup>
+	  <Name>g2</Name>
+	</ParameterGroup>
+	</Outputs>
+   </Service>

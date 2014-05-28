@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/net.ivoa.pdl.pdls/src-gen" editDirectory="/net.ivoa.pdl.pdls.edit/src"
+    editorDirectory="/net.ivoa.pdl.pdls.editor/src" modelPluginID="net.ivoa.pdl.pdls"
+    forceOverwrite="true" modelName="Pdls" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="net.ivoa.pdl.pdls.edit"
+    editorPluginID="net.ivoa.pdl.pdls.editor" runtimeVersion="2.10">
+  <genPackages prefix="Pdls" basePackage="net.ivoa.pdl.pdls" disposableProviderFactory="true"
+      fileExtensions="pdl" ecorePackage="Pdls.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Pdls.ecore#//ParameterType">
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//ParameterType/boolean"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//ParameterType/string"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//ParameterType/integer"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//ParameterType/real"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//ParameterType/date"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Pdls.ecore#//FunctionType">
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//FunctionType/size"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//FunctionType/abs"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//FunctionType/sin"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//FunctionType/cos"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//FunctionType/tan"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//FunctionType/asin"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//FunctionType/acos"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//FunctionType/atan"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//FunctionType/exp"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//FunctionType/log"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//FunctionType/sum"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//FunctionType/product"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Pdls.ecore#//OperationType">
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//OperationType/PLUS"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//OperationType/MINUS"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//OperationType/MULTIPLY"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//OperationType/DIVIDE"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//OperationType/SCALAR"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Pdls.ecore#//LogicalConnector">
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//LogicalConnector/AND"/>
+      <genEnumLiterals ecoreEnumLiteral="Pdls.ecore#//LogicalConnector/OR"/>
+    </genEnums>
+    <genClasses ecoreClass="Pdls.ecore#//PDL"/>
+    <genClasses ecoreClass="Pdls.ecore#//Service">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pdls.ecore#//Service/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//Service/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//Service/inputs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//Service/outputs"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//Parameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pdls.ecore#//Parameter/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pdls.ecore#//Parameter/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//ParameterGroup">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pdls.ecore#//ParameterGroup/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Pdls.ecore#//ParameterGroup/params"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//ParameterGroup/constraint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//ParameterGroup/active"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//ParameterGroup/groups"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//ConstraintOnGroup">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//ConstraintOnGroup/statements"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//ConditionalStatement"/>
+    <genClasses ecoreClass="Pdls.ecore#//WhenConditionalStatement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pdls.ecore#//WhenConditionalStatement/comment"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//WhenConditionalStatement/criterion"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//IfThenConditionalStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//IfThenConditionalStatement/criterion"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//IfThenConditionalStatement/clause"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//ConditionalClause">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//ConditionalClause/expr"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//ConditionalClause/cond"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//AlwaysConditionalStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//AlwaysConditionalStatement/clause"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//Condition"/>
+    <genClasses ecoreClass="Pdls.ecore#//ValueLargerThan">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//ValueLargerThan/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//ValueSmallerThan">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//ValueSmallerThan/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//ValueInRange">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//ValueInRange/inf"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//ValueInRange/sup"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//ValueDifferentFrom">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//ValueDifferentFrom/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//isReal">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pdls.ecore#//isReal/isReal"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//isRational">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pdls.ecore#//isRational/isRational"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//isInteger">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pdls.ecore#//isInteger/isInteger"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//defaultValue">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//defaultValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//BelongsToSet">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//BelongsToSet/values"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//isNull">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pdls.ecore#//isNull/isNull"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//Function">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pdls.ecore#//Function/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//Function/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//AtomicParameterExpression">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Pdls.ecore#//AtomicParameterExpression/pref"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//AtomicParameterExpression/power"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//AtomicConstantExpression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pdls.ecore#//AtomicConstantExpression/const"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//AtomicConstantExpression/power"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pdls.ecore#//AtomicConstantExpression/str"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//Expression"/>
+    <genClasses ecoreClass="Pdls.ecore#//ParenthesisContent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//ParenthesisContent/expr"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//ParenthesisContent/power"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//Criterion">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//Criterion/left"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pdls.ecore#//Criterion/conn"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//Criterion/right"/>
+    </genClasses>
+    <genClasses ecoreClass="Pdls.ecore#//Operation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//Operation/left"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Pdls.ecore#//Operation/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pdls.ecore#//Operation/right"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

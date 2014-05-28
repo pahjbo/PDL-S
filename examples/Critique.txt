@@ -1,0 +1,3 @@
+
+* in the then part of if then statement  the logical connectors are used inappropriately - what does or mean
+* ConstraintOnGroup is really a meaningless wrapper

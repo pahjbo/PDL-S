@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Service xmlns="http://www.ivoa.net/xml/PDL/v1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ivoa.net/xml/Parameter/v0.1 PDL-V1.0.xsd">
+<!-- file generated from PDL/S -->
+	<ServiceName>PDR_1D</ServiceName>
+	<Parameters>
+	<parameter>
+	 		<Name>F_ISRF</Name>
+	 		<ParameterType>integer</ParameterType>
+	</parameter>
+	<parameter>
+	 		<Name>radm</Name>
+	 		<ParameterType>real</ParameterType>
+	</parameter>
+	<parameter>
+	 		<Name>radp</Name>
+	 		<ParameterType>real</ParameterType>
+	</parameter>
+	<parameter>
+	 		<Name>d_sour</Name>
+	 		<ParameterType>real</ParameterType>
+	</parameter>
+	<parameter>
+	 		<Name>presse</Name>
+	 		<ParameterType>real</ParameterType>
+	</parameter>
+	<parameter>
+	 		<Name>srcpp</Name>
+	 		<ParameterType>string</ParameterType>
+	</parameter>
+	<parameter>
+	 		<Name>srcpp_spectrum</Name>
+	 		<ParameterType>string</ParameterType>
+	</parameter>
+	<parameter>
+	 		<Name>ieqth</Name>
+	 		<ParameterType>integer</ParameterType>
+	</parameter>
+	<parameter>
+	 		<Name>ifisob</Name>
+	 		<ParameterType>integer</ParameterType>
+	</parameter>
+	<parameter>
+	 		<Name>densh</Name>
+	 		<ParameterType>real</ParameterType>
+	</parameter>
+	<parameter>
+	 		<Name>tgaz</Name>
+	 		<ParameterType>real</ParameterType>
+	</parameter>
+	<parameter>
+	 		<Name>fprofil</Name>
+	 		<ParameterType>string</ParameterType>
+	</parameter>
+	<parameter>
+	 		<Name>F_ISRF</Name>
+	 		<ParameterType>integer</ParameterType>
+	</parameter>
+	</Parameters>
+	<Inputs>
+	<ParameterGroup>
+	  <Name>RadiationFieldAndGeometry</Name>
+	  <ParameterRef ParameterName="F_ISRF"/>
+	  <ParameterRef ParameterName="radm"/>
+	  <ParameterRef ParameterName="radp"/>
+	  <ParameterRef ParameterName="d_sour"/>
+	  <ParameterRef ParameterName="srcpp"/>
+	  <ParameterRef ParameterName="srcpp_spectrum"/>
+	  <ConstraintOnGroup>
+	     <ConditionalStatement xsi:type="AlwaysConditionalStatement">
+	        <always>
+	        </always>
+	     </ConditionalStatement>
+	     <ConditionalStatement xsi:type="AlwaysConditionalStatement">
+	        <always>
+	        </always>
+	     </ConditionalStatement>
+	     <ConditionalStatement xsi:type="AlwaysConditionalStatement">
+	        <always>
+	        </always>
+	     </ConditionalStatement>
+	     <ConditionalStatement xsi:type="AlwaysConditionalStatement">
+	        <always>
+	        </always>
+	     </ConditionalStatement>
+	     <ConditionalStatement xsi:type="IfThenConditionalStatement">
+	        <if>
+	        </if>
+	        <then>
+	        </then>
+	     </ConditionalStatement>
+	     <ConditionalStatement xsi:type="IfThenConditionalStatement">
+	        <if>
+	        </if>
+	        <then>
+	        </then>
+	     </ConditionalStatement>
+	  </ConstraintOnGroup>
+	</ParameterGroup>
+	<ParameterGroup>
+	  <Name>EquationOfState</Name>
+	  <ParameterRef ParameterName="ieqth"/>
+	  <ParameterRef ParameterName="ifisob"/>
+	  <ParameterRef ParameterName="densh"/>
+	  <ParameterRef ParameterName="tgaz"/>
+	  <ParameterRef ParameterName="fprofil"/>
+	  <ParameterRef ParameterName="presse"/>
+	  <ConstraintOnGroup>
+	     <ConditionalStatement xsi:type="AlwaysConditionalStatement">
+	        <always>
+	        </always>
+	     </ConditionalStatement>
+	     <ConditionalStatement xsi:type="AlwaysConditionalStatement">
+	        <always>
+	        </always>
+	     </ConditionalStatement>
+	     <ConditionalStatement xsi:type="IfThenConditionalStatement">
+	        <if>
+	        </if>
+	        <then>
+	        </then>
+	     </ConditionalStatement>
+	     <ConditionalStatement xsi:type="IfThenConditionalStatement">
+	        <if>
+	        </if>
+	        <then>
+	        </then>
+	     </ConditionalStatement>
+	     <ConditionalStatement xsi:type="IfThenConditionalStatement">
+	        <if>
+	        </if>
+	        <then>
+	        </then>
+	     </ConditionalStatement>
+	     <ConditionalStatement xsi:type="IfThenConditionalStatement">
+	        <if>
+	        </if>
+	        <then>
+	        </then>
+	     </ConditionalStatement>
+	     <ConditionalStatement xsi:type="IfThenConditionalStatement">
+	        <if>
+	        </if>
+	        <then>
+	        </then>
+	     </ConditionalStatement>
+	     <ConditionalStatement xsi:type="IfThenConditionalStatement">
+	        <if>
+	        </if>
+	        <then>
+	        </then>
+	     </ConditionalStatement>
+	     <ConditionalStatement xsi:type="IfThenConditionalStatement">
+	        <if>
+	        </if>
+	        <then>
+	        </then>
+	     </ConditionalStatement>
+	  </ConstraintOnGroup>
+	</ParameterGroup>
+	</Inputs>
+	<Outputs>
+	</Outputs>
+   </Service>

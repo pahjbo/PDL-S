@@ -1,0 +1,189 @@
+grammar net.ivoa.pdl.pdls.Pdls with org.eclipse.xtext.common.Terminals
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+generate pdls "http://www.ivoa.net/pdl/pdls/Pdls"
+
+/*
+ * domain specific language for PDL
+ */
+PDL:
+	Service;
+	
+Service:
+	'service' name=ID '{'
+		'parameters' '{'
+			(parameters += Parameter)+
+		'}'
+		'input' '{'
+		   (inputs += ParameterGroup)*
+		'}'
+		'output' '{'
+		   (outputs += ParameterGroup)*
+		'}'
+	'}'
+	;
+
+/* */
+ParameterID:
+	ID
+;
+/* include restriction of always conditional statement as convenience to ba applied everywhere - should not reference other parameters */	
+Parameter:
+	name = ParameterID ':' type=ParameterType ';'
+;
+
+enum ParameterType :
+	boolean|string|integer|real|date
+;
+
+ParameterGroup:
+	'group' name = ID '{' 
+	     ('params' '='params+=[Parameter|ParameterID](',' params+=[Parameter|ParameterID])*)*
+	     ( constraint = ConstraintOnGroup )?
+	     ('active' active = WhenConditionalStatement ';')?
+	     (groups += ParameterGroup)* //  we really want to mix params and groups - 
+	'}'
+;
+
+ConstraintOnGroup:
+	'constraints ' // put in some lex syntax here... IMPL.
+	('[' statements += ConditionalStatement ']')+
+;
+
+ConditionalStatement:
+	AlwaysConditionalStatement | IfThenConditionalStatement | WhenConditionalStatement
+	(comment = STRING)?
+;
+
+WhenConditionalStatement:
+   'when' criterion=ConditionalClause
+;
+
+IfThenConditionalStatement:
+	'if' criterion=ConditionalClause 'then' clause = ConditionalClause
+;
+
+/*TODO still want more than two logically joined condition */
+ConditionalClause:
+	 TerminalClause  ({Criterion.left=current} 
+    => conn=LogicalConnector right=TerminalClause)?
+;
+
+TerminalClause returns ConditionalClause:
+	 expr=Expression cond=Condition
+;
+
+AlwaysConditionalStatement:
+	'assert' clause = ConditionalClause
+;
+
+
+Condition:
+	isNull|BelongsToSet|defaultValue|isInteger|isRational|isReal|ValueDifferentFrom|ValueInRange|ValueSmallerThan|ValueLargerThan
+;
+
+ValueLargerThan:
+	'>' value=Expression
+;
+
+ValueSmallerThan:
+	'<' value=Expression
+;
+
+ValueInRange:
+	'in' 'range' '[' inf=Expression (lowlimit?='>')?'|'(highlimit?='>')? sup=Expression ']'
+;
+
+ValueDifferentFrom:
+	'!=' value=Expression
+;
+
+isReal:
+	isReal?= 'is' 'real'
+;
+
+isRational:
+	isRational?= 'is' 'rational'
+;
+
+isInteger:
+	isInteger?= 'is' 'integer'
+;
+
+defaultValue:
+	"default " value=Expression
+;
+
+/* perhaps should do something different for strings. */
+BelongsToSet:
+	'in' '{' 
+		  (values+=Expression (',' values+=Expression)* ) 
+		         '}'
+;
+
+isNull:
+	isNull?='is' 'null' 
+;
+
+Function:
+	name = FunctionType '(' expr = Expression ')'
+	
+;
+
+enum FunctionType:
+	size|abs|sin|cos|tan|asin|acos|atan|exp|log|sum|product
+;
+
+AtomicParameterExpression:
+	'$'pref=[Parameter|ParameterID] ( '^' power = Expression )? 
+;
+
+/*in pure grammar terms perhaps better to split into two - string and non-string*/
+AtomicConstantExpression:
+	(const = Number ( '^' power = Expression )? ) |
+	(str = STRING)
+;
+
+/* some parser trickery to avoid left recursion */
+Expression :
+  TerminalExpression -> ({Operation.left=current} 
+     op=OperationType right=TerminalExpression)?
+;
+ 
+TerminalExpression returns Expression:
+  ParenthesisContent |
+  AtomicConstantExpression |
+  AtomicParameterExpression |
+  Function 
+;
+
+
+ParenthesisContent:
+	'(' expr = Expression ')'  ( '^' power = Expression )?
+;
+
+
+enum OperationType :
+	PLUS='+'|
+	MINUS='-'|
+	MULTIPLY='*'|
+	DIVIDE='/'|
+	SCALAR='·' //note this is code point U+00B7 · middle dot (HTML: &#183; &middot;).
+	
+;
+
+enum LogicalConnector :
+	AND="and"|
+	OR ="or"
+;
+
+
+Number hidden():
+	INTEGER|FLOAT
+;
+//signed as a grammar rule rather than a terminal
+INTEGER returns ecore::EInt: ('+'|'-')? INT;
+ 
+terminal FLOAT returns ecore::EBigDecimal: ('+'|'-')? (INT '.' INT? | '.' INT) (('e' | 'E') ('+' | '-')? INT)?;
+

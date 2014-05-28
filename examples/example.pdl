@@ -1,0 +1,73 @@
+service PDR_1D
+      {
+          parameters 
+          {
+          F_ISRF : integer;
+       radm : real;
+       radp : real;
+       d_sour : real;
+       presse: real;
+       srcpp : string;
+       srcpp_spectrum : string;
+       ieqth : integer;
+       ifisob : integer;
+       densh : real;
+       tgaz : real;
+       fprofil : string;
+       F_ISRF : integer;
+       
+          }
+          input
+          {
+             group RadiationFieldAndGeometry 
+        {
+            params = F_ISRF, radm, radp, d_sour, srcpp, srcpp_spectrum
+       constraints 
+       
+      [  assert $F_ISRF in { 1, 2 }  ]
+      
+      [  assert $radm in range [0 ... 1.0E8] ]
+      
+      [  assert $radp in range [0 ... 1.0E8] ]
+      
+      [  assert $srcpp in { "spectro1", "spectro2", "spectroN" }  or $srcpp is null  ]
+      
+      [  if $d_sour in { 0 }  then $srcpp is null  and $srcpp_spectrum is null  ]
+      
+      [  if $d_sour != 0 and $srcpp in { "spectro1", "spectro2", "spectroN" }  then $srcpp_spectrum is null  ]
+      
+        }
+       
+   group EquationOfState 
+        {
+            params = ieqth, ifisob, densh, tgaz, fprofil, presse
+       constraints 
+       
+      [  assert $ieqth in { 0, 1 }  ]
+      
+      [  assert $ifisob in { 0, 1, 2 }  ]
+      
+      [  if $ieqth in { 0 }  then $tgaz in range [2.7...10000.0] and $ifisob in { 1 }  ]
+      
+      [  if $ieqth != 0 then $tgaz is null  ]
+      
+      [  if $ifisob in { 0 }  then $densh in range [1 ...1.0E15] ]
+      
+      [  if $ifisob != 0 then $densh is null  ]
+      
+      [  if $ifisob != 1 then $fprofil is null  ]
+      
+      [  if $ifisob in { 2 }  then $presse in range [10.0...1.0E10] ]
+      
+      [  if $ifisob != 2 then $presse is null  ]
+      
+        }
+       
+   
+          }
+          output
+          {
+             
+          }
+      }
+   

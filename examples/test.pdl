@@ -2,26 +2,25 @@ service testing
 {
 	parameters {
 		p1 : real ;
-		p2 : integer ;
-		p3 : string;
-	}
-	
-	input {
-		group g1 {
-			params=p1,p2
+		p2 : integer;
+		p3 : integer;
+		p4 : boolean;
+		p5[10] : real; 
+		pout : string;
+	}	
+	input {		
+			params=p1,p2;
 			constraints 
-			[if ($p2^2 + 1) * 5 > 10  then $p1 in range [ 3 ... cos(4.25) ] or $p1 > 1 ]
-			[ assert $p1 is null ]
-			active when $p1 > 5;
+			<< if ($p2^2 + 1) * 5 > 10
+			  then $p1 in range [ cos(4.25)  >| 4 ] or $p1 > 1 >>
+			<< assert $p3 != "stop"  >>
 			group gin {
-				
-			}
-		}
+				params = p5;
+			    active when $p3 in { "production", "deployment"};				
+			}		
 	}
 	output {
-		group g2 {
-			
-		}
+		params = pout;
 	}
 	
 }

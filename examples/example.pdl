@@ -1,73 +1,28 @@
-service PDR_1D
+service MySuperService
       {
           parameters 
           {
-          F_ISRF : integer;
-       radm : real;
-       radp : real;
-       d_sour : real;
-       presse: real;
-       srcpp : string;
-       srcpp_spectrum : string;
-       ieqth : integer;
-       ifisob : integer;
-       densh : real;
-       tgaz : real;
-       fprofil : string;
-       F_ISRF : integer;
-       
+           p1 : real;
+           p2 : integer;
+           p3 : real;
+        p4[3] : real;
+        p5[3] : real;       
           }
           input
           {
-             group RadiationFieldAndGeometry 
-        {
-            params = F_ISRF, radm, radp, d_sour, srcpp, srcpp_spectrum
+            params = p1, p2, p3;
        constraints 
-       
-      [  assert $F_ISRF in { 1, 2 }  ]
-      
-      [  assert $radm in range [0 ... 1.0E8] ]
-      
-      [  assert $radp in range [0 ... 1.0E8] ]
-      
-      [  assert $srcpp in { "spectro1", "spectro2", "spectroN" }  or $srcpp is null  ]
-      
-      [  if $d_sour in { 0 }  then $srcpp is null  and $srcpp_spectrum is null  ]
-      
-      [  if $d_sour != 0 and $srcpp in { "spectro1", "spectro2", "spectroN" }  then $srcpp_spectrum is null  ]
-      
-        }
-       
-   group EquationOfState 
-        {
-            params = ieqth, ifisob, densh, tgaz, fprofil, presse
-       constraints 
-       
-      [  assert $ieqth in { 0, 1 }  ]
-      
-      [  assert $ifisob in { 0, 1, 2 }  ]
-      
-      [  if $ieqth in { 0 }  then $tgaz in range [2.7...10000.0] and $ifisob in { 1 }  ]
-      
-      [  if $ieqth != 0 then $tgaz is null  ]
-      
-      [  if $ifisob in { 0 }  then $densh in range [1 ...1.0E15] ]
-      
-      [  if $ifisob != 0 then $densh is null  ]
-      
-      [  if $ifisob != 1 then $fprofil is null  ]
-      
-      [  if $ifisob in { 2 }  then $presse in range [10.0...1.0E10] ]
-      
-      [  if $ifisob != 2 then $presse is null  ]
-      
-        }
-       
-   
+      <<  if $p1 in range [0>|1.5707963] then $p2 in { 2, 4, 6 } 
+       and $p3 in range [-1.0|1.0] and abs(sin($p1)^$p2-$p3)^0.5-1.5<0 >>
+      <<  if $p1 in range [1.5707963>|3.1415927] then $p2 in range [0>|>10]
+       and log($p2)-$p3<0 and ($p1*$p2) is integer  >>
           }
           output
           {
-             
+             params = p4, p5;
+            constraints       
+           <<  assert ($p5·$p5/$p4·$p4)<0.01 >>
+      
           }
       }
    

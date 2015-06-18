@@ -12,31 +12,46 @@
       {
           parameters 
           {
-          </xsl:text><xsl:apply-templates select="p:Parameters/p:parameter"/><xsl:text>
+            </xsl:text><xsl:apply-templates select="p:Parameters/p:parameter"/><xsl:text>
           }
           input
           {
-             </xsl:text><xsl:apply-templates select="p:Inputs/p:ParameterGroup"/><xsl:text>
+             </xsl:text><xsl:apply-templates  select="p:Inputs"/><xsl:text>
           }
           output
           {
-             </xsl:text><xsl:apply-templates select="p:Outputs/p:ParameterGroup"/><xsl:text>
+             </xsl:text><xsl:apply-templates select="p:Outputs"/><xsl:text>
           }
       }
    </xsl:text>
    </xsl:template>
    
-   <xsl:template match="p:parameter">
-       <xsl:value-of select='concat(p:Name," : ", p:ParameterType, ";")'/><xsl:text>
+   <xsl:template name="iogroup">
+    
+            params = <xsl:value-of select="p:ParameterRef/@ParameterName" separator=", "/><xsl:text>;</xsl:text>
+            <xsl:apply-templates select="p:ConstraintOnGroup|p:ParameterGroup"/>
+       
+   </xsl:template>
+   
+   <xsl:template match="p:Inputs|p:Outputs">
+      <xsl:call-template name="iogroup"></xsl:call-template>
+   </xsl:template>
+   
+   <xsl:template match="p:parameter"><!-- this in particular is missing lots of parameter metadata -->
+       <xsl:value-of select='p:Name'/>
+       <xsl:if test="p:Dimension/p:Constant != 1">
+       <xsl:value-of select='concat("[",p:Dimension/p:Constant,"]")'/>
+       </xsl:if>
+       <xsl:value-of select='concat(" : ", p:ParameterType, ";")'/><xsl:text>
        </xsl:text>
    </xsl:template>
+   
+   
    <xsl:template match="p:ParameterGroup">
         <xsl:value-of select='concat("group ",p:Name, " ")'/>
         {
-            params = <xsl:value-of select="p:ParameterRef/@ParameterName" separator=", "/>
-            <xsl:apply-templates select="p:ConstraintOnGroup|p:ParameterGroup"/>
+        <xsl:call-template name="iogroup"></xsl:call-template>
         }
-       
    </xsl:template>
    
    <xsl:template match="p:ConstraintOnGroup">
@@ -46,9 +61,19 @@
    
    <xsl:template match='p:ConstraintOnGroup/p:ConditionalStatement'>
       <xsl:text>
-      [ </xsl:text><xsl:apply-templates/><xsl:text> ]
+      &lt;&lt; </xsl:text>
+           <xsl:apply-templates select="*[not(self::p:comment)]"/>
+           <xsl:apply-templates select="p:comment"/>
+      <xsl:text> &gt;&gt;
       </xsl:text>
    </xsl:template>
+   
+   <xsl:template match="p:comment">
+       <xsl:if test="string-length(.)!=0">
+         <xsl:value-of select="concat(': &quot;',.,'&quot;')"/>
+       </xsl:if>
+    </xsl:template>
+   
 
    <xsl:template match='p:always'>
       <xsl:text> assert </xsl:text><xsl:apply-templates/>
@@ -68,13 +93,43 @@
  <xsl:template match="p:Criterion">
      <xsl:apply-templates/>
  </xsl:template>
+ <xsl:template match="p:Expression[@xsi:type='ParenthesisContent']">
+     <xsl:text>(</xsl:text><xsl:apply-templates/><xsl:text>)</xsl:text>
+ </xsl:template>
+ 
  <xsl:template match="p:Expression">
      <xsl:apply-templates/>
  </xsl:template>
  
-   <xsl:template match='p:Expression/p:parameterRef'> <!-- inconsistent capitalization... -->
+  <xsl:template match="p:Function">
+     <xsl:value-of select="concat(@functionName,'(')"/>
+     <xsl:apply-templates/>
+     <xsl:text>)</xsl:text>
+ </xsl:template>
+ 
+ 
+   <xsl:template match='p:parameterRef'> <!-- inconsistent capitalization... -->
       <xsl:text>$</xsl:text><xsl:value-of select="@ParameterName"/>
    </xsl:template>
+   
+   <xsl:template match="p:Power">
+      <xsl:text>^</xsl:text><xsl:apply-templates/>
+   </xsl:template>
+   <xsl:template match="p:expression">
+      <xsl:apply-templates/>
+   </xsl:template>
+ 
+    <xsl:template match="p:Operation">
+      <xsl:choose >
+        <xsl:when test="@operationType='MINUS'"><xsl:text>-</xsl:text></xsl:when>
+        <xsl:when test="@operationType='PLUS'"><xsl:text>+</xsl:text></xsl:when>
+        <xsl:when test="@operationType='MULTIPLY'"><xsl:text>*</xsl:text></xsl:when>
+        <xsl:when test="@operationType='DIVIDE'"><xsl:text>/</xsl:text></xsl:when>
+        <xsl:when test="@operationType='SCALAR'"><xsl:text>·</xsl:text></xsl:when>
+      </xsl:choose>
+      <xsl:apply-templates/>
+   </xsl:template>
+   
 
    <xsl:template match='p:Constant'>
      <xsl:value-of select="."/>
@@ -91,6 +146,10 @@
    </xsl:template>  
    <xsl:template match="p:ConditionType[@xsi:type='ValueDifferentFrom']">
      <xsl:text> != </xsl:text> 
+     <xsl:apply-templates/>
+   </xsl:template>  
+   <xsl:template match="p:ConditionType[@xsi:type='ValueSmallerThan']">
+     <xsl:text>&lt;</xsl:text> 
      <xsl:apply-templates/>
    </xsl:template>  
    <xsl:template match="p:ConditionType[@xsi:type='BelongToSet']"> <!-- TODO here want comma separated list -->

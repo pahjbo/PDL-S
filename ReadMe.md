@@ -1,9 +1,9 @@
 PDL/S - a DSL for parameter description
 =======================================
 
-PDL/S is an alternative serialization of the official IVOA Parameter Description Language. The aims of the serialization are
+PDL/S is an alternative serialization of the official [IVOA Parameter Description Language](http://www.ivoa.net/documents/PDL/). The aims of the serialization are
 
- - have something easier than XML (the official serialization) to edit
+ - have something easier than XML (the official serialization) to edit by hand
  - focused editors via Eclipse Xtend
  
 

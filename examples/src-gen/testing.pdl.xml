@@ -1,43 +1,69 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Service xmlns="http://www.ivoa.net/xml/PDL/v1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ivoa.net/xml/Parameter/v0.1 PDL-V1.0.xsd">
+<Service xmlns="http://www.ivoa.net/xml/PDL/v1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ivoa.net/xml/PDL/v1.0 PDL-V1.0.xsd">
 <!-- file generated from PDL/S -->
 	<ServiceName>testing</ServiceName>
 	<Parameters>
 	<parameter>
 	 		<Name>p1</Name>
 	 		<ParameterType>real</ParameterType>
+	 	   <Dimension xsi:type="AtomicConstantExpression"
+					ConstantType="integer">
+					<Constant>1</Constant>
+				</Dimension>
+	 		
 	</parameter>
 	<parameter>
 	 		<Name>p2</Name>
 	 		<ParameterType>integer</ParameterType>
+	 	   <Dimension xsi:type="AtomicConstantExpression"
+					ConstantType="integer">
+					<Constant>1</Constant>
+				</Dimension>
+	 		
 	</parameter>
 	<parameter>
 	 		<Name>p3</Name>
+	 		<ParameterType>integer</ParameterType>
+	 	   <Dimension xsi:type="AtomicConstantExpression"
+					ConstantType="integer">
+					<Constant>1</Constant>
+				</Dimension>
+	 		
+	</parameter>
+	<parameter>
+	 		<Name>p4</Name>
+	 		<ParameterType>boolean</ParameterType>
+	 	   <Dimension xsi:type="AtomicConstantExpression"
+					ConstantType="integer">
+					<Constant>1</Constant>
+				</Dimension>
+	 		
+	</parameter>
+	<parameter>
+	 		<Name>p5</Name>
+	 		<ParameterType>real</ParameterType>
+	 	   <Dimension xsi:type="AtomicConstantExpression"
+					ConstantType="integer">
+					<Constant> 10 </Constant>
+				</Dimension>
+	 		
+	</parameter>
+	<parameter>
+	 		<Name>pout</Name>
 	 		<ParameterType>string</ParameterType>
+	 	   <Dimension xsi:type="AtomicConstantExpression"
+					ConstantType="integer">
+					<Constant>1</Constant>
+				</Dimension>
+	 		
 	</parameter>
 	</Parameters>
 	<Inputs>
-	<ParameterGroup>
-	  <Name>g1</Name>
-	  <ParameterRef ParameterName="p1"/>
-	  <ParameterRef ParameterName="p2"/>
-	  <ConstraintOnGroup>
-	     <ConditionalStatement xsi:type="IfThenConditionalStatement">
-	        <if>
-	        </if>
-	        <then>
-	        </then>
-	     </ConditionalStatement>
-	     <ConditionalStatement xsi:type="AlwaysConditionalStatement">
-	        <always>
-	        </always>
-	     </ConditionalStatement>
-	  </ConstraintOnGroup>
-	</ParameterGroup>
+	   <Name>input</Name>
+		net.ivoa.pdl.pdls.pdls.impl.IOGroupImpl@1965d3e9
 	</Inputs>
 	<Outputs>
-	<ParameterGroup>
-	  <Name>g2</Name>
-	</ParameterGroup>
+	   <Name>outpuy</Name>
+		net.ivoa.pdl.pdls.pdls.impl.IOGroupImpl@61eecc04
 	</Outputs>
    </Service>
